@@ -1,3 +1,9 @@
+/* Name: Nicholas Walsh
+ * Dr. Andrew Steinberg
+ * COP3503 Fall 2021
+ * Programming Assignment 3
+ */
+
 package lcs;
 
 import java.lang.String;
@@ -21,7 +27,7 @@ public class LCS
 
   public LCS(String message1, String message2)//Loaded lcs constructor
   {
-    this.message1 += "-";//Inserting empty subsequence operator
+    this.message1 += "-";//Inserting empty subsequence operator at the beginning of the message
     this.message2 += "-";
 
     this.message1 += message1;
@@ -34,12 +40,11 @@ public class LCS
     mapB = new String[m][n];
   }
 
+  //Loops through mapB and stores the correct subsequence character according to the route placed in mapB
   public String getLCS()//Print LCS algorithm we discussed in class
   {
     while(i != 0 && j != 0)
     {
-    //  System.out.print(i + " " + j);
-    //  System.out.println(mapB[i][j]);
       if((mapB[i][j]).equals("diag"))
       {
         lcs += message1.charAt(i);
@@ -56,11 +61,15 @@ public class LCS
       }
     }
 
-    lcs = reverse(lcs);
-    System.out.println(lcs);
+    lcs = reverse(lcs); //Reversing order of the string to match output detailed in the runner file
     return lcs;
   }
 
+  /*
+  Uses mapA array to test all possible subsequences between message1 and message2.
+  Uses mapB array to hold the route we must take through the two strings to generate
+  the greatest common subsequence.
+  */
   public void lcsDynamicSol()
   {
     for(i = 0; i < m; i++)//Pre filling array
@@ -94,10 +103,11 @@ public class LCS
         }
       }
     }
-    i--;
+    i--;//i and j values are decremented because the size of i and j must align with the size of the 2d array
     j--;
   }
 
+  //Method to reverse the order of a string using the StringBuilder class
   public static String reverse(String str)
   {
     StringBuilder output = new StringBuilder(str);
